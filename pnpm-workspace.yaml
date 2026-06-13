@@ -1,8 +1,5 @@
 packages:
-  - "stockflow-application"
-  - "stockflow-component"
-  - "stockflow-feature"
-  - "stockflow-helpers"
+  - "packages/*"
 minimumReleaseAgeExclude:
   - react-hook-form@7.79.0
   - webpack-dev-server@5.2.5
