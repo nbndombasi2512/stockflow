@@ -1,10 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "stockflow-component";
+import { useMemo, useState } from "react";
 import { formatQuantity } from "stockflow-helpers";
 import styled from "styled-components";
+import { InventoryTable } from "./InventoryTable";
+import { QuickAddForm } from "./QuickAddForm";
+import type { InventoryItem } from "./types";
 
 const Page = styled.main`
-  max-width: 720px;
+  max-width: 820px;
   margin: 0 auto;
   padding: ${({ theme }) => theme.spacing(12)};
 `;
@@ -26,20 +28,24 @@ const Subtitle = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-interface InventorySummary {
-  totalUnits: number;
-}
+const SEED_ITEMS: InventoryItem[] = [
+  { sku: "SKU-001", name: "Pallet jack", quantity: 12 },
+  { sku: "SKU-002", name: "Shipping box (L)", quantity: 4200 },
+];
 
 /**
- * Placeholder landing screen that exercises the full stack of workspace
- * packages: a TanStack Query call, a styled-components layout, a shared Button,
- * and a helper from stockflow-helpers.
+ * Placeholder landing screen that exercises every core frontend library:
+ * styled-components layout, a shared Radix-backed Button (via QuickAddForm),
+ * react-hook-form (QuickAddForm), @tanstack/react-table (InventoryTable), and a
+ * helper from stockflow-helpers.
  */
 export function HomeScreen() {
-  const { data, isLoading } = useQuery<InventorySummary>({
-    queryKey: ["inventory-summary"],
-    queryFn: async () => ({ totalUnits: 12500 }),
-  });
+  const [items, setItems] = useState<InventoryItem[]>(SEED_ITEMS);
+
+  const totalUnits = useMemo(
+    () => items.reduce((sum, item) => sum + item.quantity, 0),
+    [items],
+  );
 
   return (
     <Page>
@@ -51,11 +57,10 @@ export function HomeScreen() {
         </Subtitle>
         <p>
           Total units on hand:{" "}
-          <strong>
-            {isLoading ? "…" : formatQuantity(data?.totalUnits ?? 0, "units")}
-          </strong>
+          <strong>{formatQuantity(totalUnits, "units")}</strong>
         </p>
-        <Button onClick={() => window.alert("Wired up!")}>Get started</Button>
+        <QuickAddForm onAdd={(item) => setItems((prev) => [...prev, item])} />
+        <InventoryTable items={items} />
       </Card>
     </Page>
   );
