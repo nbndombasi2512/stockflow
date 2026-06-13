@@ -1,0 +1,31 @@
+{
+  "name": "stockflow-feature",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx --max-warnings 0 || true"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.101.0",
+    "@tanstack/react-table": "^8.21.3",
+    "react-hook-form": "^7.79.0",
+    "stockflow-component": "workspace:*",
+    "stockflow-helpers": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-router-dom": ">=6",
+    "styled-components": ">=6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "react": "^19.2.7",
+    "react-router-dom": "^7.17.0",
+    "styled-components": "^6.4.2",
+    "typescript": "^6.0.3"
+  }
+}
