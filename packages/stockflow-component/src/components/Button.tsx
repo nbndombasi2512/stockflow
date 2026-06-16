@@ -20,6 +20,7 @@ const StyledButton = styled.button<{ $variant: Variant }>`
   border: 1px solid transparent;
   font-size: 14px;
   font-weight: 600;
+  white-space: nowrap;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 

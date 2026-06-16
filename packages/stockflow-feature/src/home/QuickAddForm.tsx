@@ -4,22 +4,29 @@ import styled from "styled-components";
 import type { InventoryItem } from "./types";
 
 const Form = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr 120px auto;
-  gap: ${({ theme }) => theme.spacing(3)};
+  display: flex;
+  flex-wrap: wrap;
   align-items: end;
+  gap: ${({ theme }) => theme.spacing(3)};
   margin-bottom: ${({ theme }) => theme.spacing(6)};
 `;
 
 const Field = styled.label`
   display: flex;
+  flex: 1 1 140px;
+  min-width: 0;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(1)};
   font-size: 12px;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
+const QuantityField = styled(Field)`
+  flex: 0 1 110px;
+`;
+
 const Input = styled.input`
+  width: 100%;
   padding: ${({ theme }) => `${theme.spacing(2)} ${theme.spacing(3)}`};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.radii.md};
@@ -69,14 +76,14 @@ export function QuickAddForm({
           {...register("name", { required: true })}
         />
       </Field>
-      <Field>
+      <QuantityField>
         Quantity
         <Input
           type="number"
           min={0}
           {...register("quantity", { valueAsNumber: true, min: 0 })}
         />
-      </Field>
+      </QuantityField>
       <Button type="submit">Add item</Button>
     </Form>
   );
