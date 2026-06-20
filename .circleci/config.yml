@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Enable corepack (pnpm)
           command: |
-            corepack enable
+            sudo corepack enable
             corepack prepare pnpm@11.6.0 --activate
       - restore_cache:
           keys:
