@@ -7,10 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Enable corepack (pnpm)
-          command: |
-            sudo corepack enable
-            corepack prepare pnpm@11.6.0 --activate
+          name: Install pnpm
+          command: sudo npm install -g pnpm@11.6.0
       - restore_cache:
           keys:
             - pnpm-v1-{{ checksum "pnpm-lock.yaml" }}
