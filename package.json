@@ -2,11 +2,19 @@
   "name": "stockflow",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22.13",
+    "pnpm": "11.6.0"
+  },
   "packageManager": "pnpm@11.6.0",
   "scripts": {
+    "predev": "node scripts/check-node.mjs",
     "dev": "turbo run dev",
+    "prebuild": "node scripts/check-node.mjs",
     "build": "turbo run build",
+    "prelint": "node scripts/check-node.mjs",
     "lint": "turbo run lint",
+    "pretype-check": "node scripts/check-node.mjs",
     "type-check": "turbo run type-check"
   },
   "devDependencies": {

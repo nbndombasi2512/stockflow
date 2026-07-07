@@ -1,6 +1,15 @@
-# Agent guidelines
+# Project Instructions
 
-## Git workflow
+Stockflow is an inventory management software application.
 
-- NEVER commit or push directly to `main`.
-- Only operate on `main` directly if the user explicitly asks for it in that request.
+## Standards
+
+Read `.cursor/rules/standards.mdc` for coding conventions (naming, permissions, analytics, feature flags, code style, testing requirements).
+
+## Skills
+
+Check `.cursor/skills/` before implementing. Each skill folder contains a `SKILL.md` with instructions for when and how to use it.
+
+**Never:**
+
+- Never commit `.env` files or secrets

@@ -1,16 +1,9 @@
-import { Slot } from "@radix-ui/react-slot";
-import type { ButtonHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 
 type Variant = "primary" | "secondary";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: Variant;
-  /** Render as the child element (Radix Slot pattern), e.g. wrapping a link. */
-  asChild?: boolean;
-}
 
-const StyledButton = styled.button<{ $variant: Variant }>`
+export const StyledButton = styled.button<{ $variant: Variant }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -50,12 +43,3 @@ const StyledButton = styled.button<{ $variant: Variant }>`
   }
 `;
 
-export function Button({
-  variant = "primary",
-  asChild = false,
-  ...props
-}: ButtonProps) {
-  return (
-    <StyledButton as={asChild ? Slot : "button"} $variant={variant} {...props} />
-  );
-}
