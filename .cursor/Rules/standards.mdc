@@ -1,0 +1,59 @@
+---
+description: Core project standards and conventions
+alwaysApply: true
+---
+
+## Tech Stack
+- React 18 + TypeScript (strict mode)
+- styled-components 6 (theme-based)
+- react-hook-form (forms)
+- react-intl (i18n)
+- Jest + React Testing Library
+- Tanstack react-query 
+
+### Naming
+- **Folders**: kebab-case, one component/hook per folder (`chat-input/`)
+- **Components**: PascalCase (`ChatInput`)
+- **Hooks**: camelCase with `use` prefix (`useChatMessages`)
+- **Constants**: SCREAMING_SNAKE_CASE (`MIXPANEL_EVENTS`)
+- **Test IDs**: kebab-case (`data-testid="chat-input"`)
+- **Entry point**: Always `index.tsx` or `index.ts`
+
+
+### User Facing Copy
+- Watch for possible user-facing copy when writing components, hooks, or views. Use the `user-facing-copy` skill for these scenarios.
+
+### Analytics
+- Use `analytics.track()` from `@cube/helpers`
+- Create feature-specific hooks (e.g., `useChatAnalytics`)
+
+### Feature Flags
+- Use `useFlags()` from `@cube/helpers` (LaunchDarkly)
+
+### Code Style
+- No single-line if statements — always use braces with the body on the next line. Shorthand expressions (ternaries, `&&`) are allowed.
+- For optional JSX (show a subtree or nothing), prefer `{condition && <Component />}` over `{condition ? <Component /> : null}` — React does not render `false`, `null`, or `undefined`, so an explicit `: null` branch is unnecessary. Use a ternary when both branches render different UI.
+- Prefer `condition && value` over `condition ? value : false` in boolean expressions — the `false` branch is dead weight. The same applies to `: null`, `: undefined`, or `: 0` when the falsy default already matches the short-circuit result.
+- Extract complex conditional expressions into descriptive boolean variables (e.g., `shouldShowPagination`, `shouldRenderSettings`) to improve readability
+- Avoid redundant nullish coalescing with `undefined` (e.g., `value ?? undefined`). If a variable is already `undefined` or a value, use it directly. Only use `?? undefined` when explicitly converting `null` to `undefined`.
+- Only export what is necessary. Prioritize production code paths over testing, but do export as necessary for testing (typically exporting more type definitions)
+- Re-exports (`export { X } from '...'`) are only allowed in entry-point files (`index.ts`/`index.tsx`) as barrel exports.
+- Non-entry-point files (components, hooks, styles, messages, types, etc.) must not re-export imports. Import directly from the source module instead.
+- Prefer index-based for loops over `for...of` loops; use `i += 1` / `i -= 1` instead of `++` / `--` (ESLint `no-plusplus`)
+- Combine sequential early-return `if` guards that share the same body (e.g., `return`) into a single `if` with `||`. Keep them separate only when each branch has a distinct body or side effect.
+
+### Logic, Helpers, and Utilities
+- Use the `logic-helpers-utilities` skill for guidance when writing logic, helpers and/or utilities
+
+### Testing
+- Unit tests are required for all new code.
+- Use the `write-tests` skill for guidance when writing tests
+
+## Do Not
+- Do not use `console.log` - use `logger` from `@cube/helpers`. Do not remove existing `console.log` statements.
+- Do not use `any` type without justification
+- Do not add unnecessary inline comments. Do not remove existing inline comments
+
+## Dependencies and npm packages
+- Always use --save-exact if a package is being added to the project
+- Always check if a dependency is used in multiple packages in the monorepo before updating the version. All packages should use the same version of a dependency.
