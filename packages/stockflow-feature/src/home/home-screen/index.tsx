@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { formatQuantity } from "stockflow-helpers";
-import styled from "styled-components";
 import { InventoryTable } from "../Inventory-table";
 import { QuickAddForm } from "../Quick-add-form";
 import type { InventoryItem } from "../types";

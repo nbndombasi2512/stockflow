@@ -1,5 +1,3 @@
-import { Slot } from "@radix-ui/react-slot";
-import type { ButtonHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 
 type Variant = "primary" | "secondary";

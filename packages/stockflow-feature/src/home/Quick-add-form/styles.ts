@@ -1,7 +1,4 @@
-import { useForm } from "react-hook-form";
-import { Button } from "stockflow-component";
 import styled from "styled-components";
-import type { InventoryItem } from "../types";
 
 export const Form = styled.form`
   display: flex;

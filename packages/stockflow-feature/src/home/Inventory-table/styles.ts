@@ -1,12 +1,4 @@
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-import { formatQuantity } from "stockflow-helpers";
 import styled from "styled-components";
-import type { InventoryItem } from "../types";
 
 export const Table = styled.table`
   width: 100%;

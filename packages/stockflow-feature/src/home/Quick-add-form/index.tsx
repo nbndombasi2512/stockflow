@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { Button } from "stockflow-component";
-import styled from "styled-components";
 import type { InventoryItem } from "../types";
 import { Form, Field, QuantityField, Input } from "./styles";   
 
