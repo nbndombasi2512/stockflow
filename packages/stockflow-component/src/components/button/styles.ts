@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 type Variant = "primary" | "secondary";
 
-
 export const StyledButton = styled.button<{ $variant: Variant }>`
   display: inline-flex;
   align-items: center;
@@ -15,7 +14,10 @@ export const StyledButton = styled.button<{ $variant: Variant }>`
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 
   ${({ theme, $variant }) =>
     $variant === "primary"
@@ -42,4 +44,3 @@ export const StyledButton = styled.button<{ $variant: Variant }>`
     cursor: not-allowed;
   }
 `;
-

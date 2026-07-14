@@ -1,6 +1,4 @@
-
 import styled from "styled-components";
-
 
 export const Page = styled.main`
   max-width: 820px;
@@ -24,4 +22,3 @@ export const Subtitle = styled.p`
   margin: 0 0 ${({ theme }) => theme.spacing(6)};
   color: ${({ theme }) => theme.colors.textMuted};
 `;
-

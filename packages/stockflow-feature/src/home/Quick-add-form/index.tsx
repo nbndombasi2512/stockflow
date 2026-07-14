@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Button } from "stockflow-component";
 import type { InventoryItem } from "../types";
-import { Form, Field, QuantityField, Input } from "./styles";   
+import { Form, Field, QuantityField, Input } from "./styles";
 
 interface QuickAddFormValues {
   sku: string;
@@ -35,10 +35,7 @@ export function QuickAddForm({
       </Field>
       <Field>
         Product
-        <Input
-          placeholder="Widget"
-          {...register("name", { required: true })}
-        />
+        <Input placeholder="Widget" {...register("name", { required: true })} />
       </Field>
       <QuantityField>
         Quantity

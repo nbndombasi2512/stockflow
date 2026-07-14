@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src --max-warnings 0"
+    "lint": "eslint src --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\""
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.0",

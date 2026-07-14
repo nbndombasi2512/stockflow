@@ -8,7 +8,6 @@ import { formatQuantity } from "stockflow-helpers";
 import type { InventoryItem } from "../types";
 import { Table, Empty } from "./styles";
 
-
 const columnHelper = createColumnHelper<InventoryItem>();
 
 const columns = [
