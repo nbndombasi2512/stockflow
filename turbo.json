@@ -1,6 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["tsconfig.base.json", "eslint.config.mjs"],
+  "globalDependencies": [
+    "tsconfig.base.json",
+    "eslint.config.mjs",
+    ".prettierrc.json"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -11,6 +15,9 @@
       "persistent": true
     },
     "lint": {},
+    "format": {
+      "cache": false
+    },
     "type-check": {
       "dependsOn": ["^build"]
     }

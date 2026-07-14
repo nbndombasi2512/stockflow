@@ -10,13 +10,16 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
-
 export function Button({
   variant = "primary",
   asChild = false,
   ...props
 }: ButtonProps) {
   return (
-    <StyledButton as={asChild ? Slot : "button"} $variant={variant} {...props} />
+    <StyledButton
+      as={asChild ? Slot : "button"}
+      $variant={variant}
+      {...props}
+    />
   );
 }

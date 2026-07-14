@@ -3,7 +3,7 @@ import { formatQuantity } from "stockflow-helpers";
 import { InventoryTable } from "../Inventory-table";
 import { QuickAddForm } from "../Quick-add-form";
 import type { InventoryItem } from "../types";
-import { Page, Card, Title, Subtitle } from "./styles";   
+import { Page, Card, Title, Subtitle } from "./styles";
 
 export const SEED_ITEMS: InventoryItem[] = [
   { sku: "SKU-001", name: "Pallet jack", quantity: 12 },

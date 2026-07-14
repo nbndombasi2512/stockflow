@@ -14,15 +14,19 @@
     "build": "turbo run build",
     "prelint": "node scripts/check-node.mjs",
     "lint": "turbo run lint",
+    "preformat": "node scripts/check-node.mjs",
+    "format": "turbo run format",
     "pretype-check": "node scripts/check-node.mjs",
     "type-check": "turbo run type-check"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "eslint": "^9.39.4",
+    "eslint-config-prettier": "10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.6.0",
+    "prettier": "3.6.2",
     "turbo": "^2.9.18",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.61.1"
