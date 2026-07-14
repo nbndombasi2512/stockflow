@@ -2,6 +2,11 @@
 
 Stockflow is an inventory management software application.
 
+## API 
+
+API is stockflow-api
+/workspace/stockflow-api
+
 ## Standards
 
 Read `.cursor/rules/standards.mdc` for coding conventions (naming, permissions, analytics, feature flags, code style, testing requirements).

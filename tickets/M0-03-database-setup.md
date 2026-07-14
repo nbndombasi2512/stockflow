@@ -9,6 +9,8 @@
 
 Provision a PostgreSQL database and integrate it with NestJS via Prisma, including a `schema.prisma`, a generated Prisma Client, and an injectable `PrismaService`.
 
+Make sure you use docker
+
 ## Acceptance Criteria
 
 - [ ] Prisma initialized with a `schema.prisma` pointing at PostgreSQL (`DATABASE_URL`).
