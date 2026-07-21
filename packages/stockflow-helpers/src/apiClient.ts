@@ -2,13 +2,45 @@ export interface ApiClientOptions {
   baseUrl?: string;
 }
 
+export interface ApiErrorBody {
+  statusCode?: number;
+  message?: string | string[];
+  error?: string;
+}
+
 export class ApiError extends Error {
   constructor(
     public readonly status: number,
     message: string,
+    public readonly body?: ApiErrorBody,
   ) {
     super(message);
     this.name = "ApiError";
+  }
+}
+
+function formatErrorMessage(
+  status: number,
+  body: ApiErrorBody | undefined,
+): string {
+  if (body?.message === undefined) {
+    return `Request failed: ${status}`;
+  }
+
+  if (Array.isArray(body.message)) {
+    return body.message.join("; ");
+  }
+
+  return body.message;
+}
+
+async function parseErrorBody(
+  response: Response,
+): Promise<ApiErrorBody | undefined> {
+  try {
+    return (await response.json()) as ApiErrorBody;
+  } catch {
+    return undefined;
   }
 }
 
@@ -26,7 +58,12 @@ export function createApiClient(options: ApiClientOptions = {}) {
     });
 
     if (!response.ok) {
-      throw new ApiError(response.status, `Request failed: ${response.status}`);
+      const body = await parseErrorBody(response);
+      throw new ApiError(
+        response.status,
+        formatErrorMessage(response.status, body),
+        body,
+      );
     }
 
     return (await response.json()) as T;
