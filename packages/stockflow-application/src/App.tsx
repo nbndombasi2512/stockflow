@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { GlobalStyle, theme } from "stockflow-component";
-import { HomeScreen, SignupPage } from "stockflow-feature";
+import { HomeScreen, LoginPage, SignupPage } from "stockflow-feature";
 import { ThemeProvider } from "styled-components";
 
 export function App() {
@@ -15,6 +15,7 @@ export function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
           </Routes>
         </BrowserRouter>
