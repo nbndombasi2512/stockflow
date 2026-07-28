@@ -1,25 +1,35 @@
-import { Slot } from "@radix-ui/react-slot";
-import type { ButtonHTMLAttributes } from "react";
-import { StyledButton } from "./styles";
+import { Button as AntButton } from "antd";
+import type { ButtonProps as AntButtonProps } from "antd";
+import type { ReactNode } from "react";
 
 type Variant = "primary" | "secondary";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends Omit<AntButtonProps, "type" | "htmlType" | "variant"> {
   variant?: Variant;
-  /** Render as the child element (Radix Slot pattern), e.g. wrapping a link. */
-  asChild?: boolean;
+  /** Native HTML button type (mapped to antd `htmlType`). */
+  type?: "button" | "submit" | "reset";
+  children?: ReactNode;
 }
+
+const VARIANT_TO_ANT_TYPE = {
+  primary: "primary",
+  secondary: "default",
+} as const;
 
 export function Button({
   variant = "primary",
-  asChild = false,
+  type = "button",
+  children,
   ...props
 }: ButtonProps) {
   return (
-    <StyledButton
-      as={asChild ? Slot : "button"}
-      $variant={variant}
+    <AntButton
+      type={VARIANT_TO_ANT_TYPE[variant]}
+      htmlType={type}
       {...props}
-    />
+    >
+      {children}
+    </AntButton>
   );
 }

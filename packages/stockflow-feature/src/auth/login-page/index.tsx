@@ -116,10 +116,10 @@ export function LoginPage() {
           </Field>
           <Button
             type="submit"
-            disabled={loginMutation.isPending}
+            loading={loginMutation.isPending}
             data-testid="login-submit"
           >
-            {loginMutation.isPending ? "Logging in…" : "Log in"}
+            Log in
           </Button>
         </Form>
         <Footer>
