@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.5",
+    "antd": "5.26.7",
     "stockflow-helpers": "workspace:*"
   },
   "peerDependencies": {
