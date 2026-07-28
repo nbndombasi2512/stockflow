@@ -12,7 +12,7 @@ export const SEED_ITEMS: InventoryItem[] = [
 
 /**
  * Placeholder landing screen that exercises every core frontend library:
- * styled-components layout, a shared Radix-backed Button (via QuickAddForm),
+ * styled-components layout, a shared antd-backed Button (via QuickAddForm),
  * react-hook-form (QuickAddForm), @tanstack/react-table (InventoryTable), and a
  * helper from stockflow-helpers.
  */
