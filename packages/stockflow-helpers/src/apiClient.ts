@@ -1,3 +1,5 @@
+import { getToken } from "./tokenStorage";
+
 export interface ApiClientOptions {
   baseUrl?: string;
 }
@@ -19,10 +21,10 @@ export class ApiError extends Error {
   }
 }
 
-function formatErrorMessage(
+const formatErrorMessage = (
   status: number,
   body: ApiErrorBody | undefined,
-): string {
+): string => {
   if (body?.message === undefined) {
     return `Request failed: ${status}`;
   }
@@ -32,29 +34,46 @@ function formatErrorMessage(
   }
 
   return body.message;
-}
+};
 
-async function parseErrorBody(
+const parseErrorBody = async (
   response: Response,
-): Promise<ApiErrorBody | undefined> {
+): Promise<ApiErrorBody | undefined> => {
   try {
     return (await response.json()) as ApiErrorBody;
   } catch {
     return undefined;
   }
-}
+};
+
+const buildHeaders = (init?: RequestInit): Headers => {
+  const headers = new Headers({ "Content-Type": "application/json" });
+  const token = getToken();
+
+  if (token) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
+  if (init?.headers) {
+    new Headers(init.headers).forEach((value, key) => {
+      headers.set(key, value);
+    });
+  }
+
+  return headers;
+};
 
 /**
  * Minimal typed fetch wrapper. Centralizes base URL, JSON handling, and error
  * normalization so feature code can stay focused on data shapes.
  */
-export function createApiClient(options: ApiClientOptions = {}) {
+export const createApiClient = (options: ApiClientOptions = {}) => {
   const baseUrl = options.baseUrl ?? "/api";
 
-  async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const request = async <T>(path: string, init?: RequestInit): Promise<T> => {
     const response = await fetch(`${baseUrl}${path}`, {
-      headers: { "Content-Type": "application/json", ...init?.headers },
       ...init,
+      headers: buildHeaders(init),
     });
 
     if (!response.ok) {
@@ -67,11 +86,11 @@ export function createApiClient(options: ApiClientOptions = {}) {
     }
 
     return (await response.json()) as T;
-  }
+  };
 
   return {
     get: <T>(path: string) => request<T>(path),
     post: <T>(path: string, body: unknown) =>
       request<T>(path, { method: "POST", body: JSON.stringify(body) }),
   };
-}
+};

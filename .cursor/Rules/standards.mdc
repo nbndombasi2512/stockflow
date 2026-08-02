@@ -31,6 +31,7 @@ alwaysApply: true
 - Use `useFlags()` from `@cube/helpers` (LaunchDarkly)
 
 ### Code Style
+- Always declare functions as arrow functions assigned to `const` (`const HomeScreen = () => { ... }`) — never use `function` declarations. This applies to components, hooks, helpers, and test utilities alike. Declare a function above its first use, since `const` bindings are not hoisted.
 - No single-line if statements — always use braces with the body on the next line. Shorthand expressions (ternaries, `&&`) are allowed.
 - For optional JSX (show a subtree or nothing), prefer `{condition && <Component />}` over `{condition ? <Component /> : null}` — React does not render `false`, `null`, or `undefined`, so an explicit `: null` branch is unnecessary. Use a ternary when both branches render different UI.
 - Prefer `condition && value` over `condition ? value : false` in boolean expressions — the `false` branch is dead weight. The same applies to `: null`, `: undefined`, or `: 0` when the falsy default already matches the short-circuit result.
