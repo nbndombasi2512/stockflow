@@ -13,8 +13,16 @@ export const Card = styled.section`
   padding: ${({ theme }) => theme.spacing(8)};
 `;
 
+export const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${({ theme }) => theme.spacing(4)};
+  margin-bottom: ${({ theme }) => theme.spacing(2)};
+`;
+
 export const Title = styled.h1`
-  margin: 0 0 ${({ theme }) => theme.spacing(2)};
+  margin: 0;
   font-size: 24px;
 `;
 

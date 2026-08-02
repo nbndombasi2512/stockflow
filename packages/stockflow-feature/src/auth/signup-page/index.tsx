@@ -54,7 +54,7 @@ export function SignupPage() {
       },
       {
         onSuccess: () => {
-          navigate("/");
+          navigate("/login");
         },
       },
     );

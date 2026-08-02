@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "stockflow-component";
-import { ApiError, setToken } from "stockflow-helpers";
+import { ApiError } from "stockflow-helpers";
+import { useAuth } from "../auth-context";
 import { useLoginMutation } from "../use-login-mutation";
 import {
   Page,
@@ -37,6 +38,7 @@ function getServerErrorMessage(error: unknown): string {
 
 export function LoginPage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const loginMutation = useLoginMutation();
   const {
     register,
@@ -54,7 +56,7 @@ export function LoginPage() {
       },
       {
         onSuccess: (data) => {
-          setToken(data.accessToken);
+          login({ accessToken: data.accessToken, user: data.user });
           navigate("/");
         },
       },

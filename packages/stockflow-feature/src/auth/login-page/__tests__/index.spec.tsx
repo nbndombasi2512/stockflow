@@ -4,9 +4,10 @@ import userEvent from "@testing-library/user-event";
 import type { ReactElement, ReactNode } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { theme } from "stockflow-component";
-import { ApiError, clearToken, getToken } from "stockflow-helpers";
+import { ApiError, clearAuth, getToken, getUser } from "stockflow-helpers";
 import { ThemeProvider } from "styled-components";
 import { LoginPage } from "../index";
+import { AuthProvider } from "../../auth-context";
 import { useLoginMutation } from "../../use-login-mutation";
 
 const navigateMock = jest.fn();
@@ -40,7 +41,9 @@ function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <MemoryRouter>{children}</MemoryRouter>
+        <MemoryRouter>
+          <AuthProvider>{children}</AuthProvider>
+        </MemoryRouter>
       </ThemeProvider>
     </QueryClientProvider>
   );
@@ -62,7 +65,7 @@ function setup(ui: ReactElement = <LoginPage />) {
 describe("LoginPage", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    clearToken();
+    clearAuth();
     useLoginMutationMock.mockReturnValue({
       mutate: mutateMock,
       isPending: false,
@@ -94,15 +97,17 @@ describe("LoginPage", () => {
     expect(mutateMock).not.toHaveBeenCalled();
   });
 
-  it("stores the JWT and navigates home on success", async () => {
+  it("stores the JWT and user, then navigates home on success", async () => {
+    const loginUser = {
+      id: "user-1",
+      email: "alice@example.com",
+      createdAt: "2026-07-16T12:00:00.000Z",
+    };
+
     mutateMock.mockImplementation((_values, options) => {
       options?.onSuccess?.({
         accessToken: "signed-jwt",
-        user: {
-          id: "user-1",
-          email: "alice@example.com",
-          createdAt: "2026-07-16T12:00:00.000Z",
-        },
+        user: loginUser,
       });
     });
 
@@ -124,6 +129,7 @@ describe("LoginPage", () => {
       );
     });
     expect(getToken()).toBe("signed-jwt");
+    expect(getUser()).toEqual(loginUser);
     expect(navigateMock).toHaveBeenCalledWith("/");
   });
 
