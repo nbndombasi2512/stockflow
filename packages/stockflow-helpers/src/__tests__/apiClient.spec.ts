@@ -67,4 +67,19 @@ describe("createApiClient", () => {
     expect(init.method).toBe("POST");
     expect(init.body).toBe(JSON.stringify({ email: "a@b.com" }));
   });
+
+  it("sends a PATCH request with a JSON body", async () => {
+    const fetchMock = mockFetchOnce({ id: "loc-1", archived: true });
+
+    await createApiClient().patch("/locations/loc-1", { archived: true });
+
+    const init = fetchMock.mock.calls[0][1] as RequestInit;
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/locations/loc-1",
+      expect.anything(),
+    );
+    expect(init.method).toBe("PATCH");
+    expect(init.body).toBe(JSON.stringify({ archived: true }));
+  });
 });

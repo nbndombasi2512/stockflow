@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import type { ReactElement, ReactNode } from "react";
 import { MemoryRouter } from "react-router-dom";
+import type { InitialEntry } from "react-router";
 import { theme } from "stockflow-component";
 import { ThemeProvider } from "styled-components";
 import type { Location } from "../../types";
@@ -33,7 +34,13 @@ const mockLocations: Location[] = [
   },
 ];
 
-const Providers = ({ children }: { children: ReactNode }) => {
+const Providers = ({
+  children,
+  initialEntries = ["/locations"],
+}: {
+  children: ReactNode;
+  initialEntries?: InitialEntry[];
+}) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false },
@@ -44,14 +51,21 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <MemoryRouter>{children}</MemoryRouter>
+        <MemoryRouter initialEntries={initialEntries}>{children}</MemoryRouter>
       </ThemeProvider>
     </QueryClientProvider>
   );
 };
 
-const setup = (ui: ReactElement = <LocationListPage />) => {
-  const utils = render(ui, { wrapper: Providers });
+const setup = (
+  ui: ReactElement = <LocationListPage />,
+  initialEntries?: InitialEntry[],
+) => {
+  const utils = render(ui, {
+    wrapper: ({ children }) => (
+      <Providers initialEntries={initialEntries}>{children}</Providers>
+    ),
+  });
 
   return { utils };
 };
@@ -129,6 +143,58 @@ describe("LocationListPage", () => {
     expect(screen.getByTestId("location-edit-loc-1")).toHaveAttribute(
       "href",
       "/locations?edit=loc-1",
+    );
+  });
+
+  it("opens the create dialog from the create search param", () => {
+    useLocationsQueryMock.mockReturnValue({
+      data: mockLocations,
+      isPending: false,
+      isError: false,
+      error: null,
+    } as ReturnType<typeof useLocationsQuery>);
+
+    setup(<LocationListPage />, ["/locations?create=1"]);
+
+    expect(screen.getByTestId("location-form-dialog")).toBeInTheDocument();
+    expect(screen.getByTestId("location-form-title")).toHaveTextContent(
+      "Add location",
+    );
+  });
+
+  it("opens the edit dialog from the edit search param", () => {
+    useLocationsQueryMock.mockReturnValue({
+      data: mockLocations,
+      isPending: false,
+      isError: false,
+      error: null,
+    } as ReturnType<typeof useLocationsQuery>);
+
+    setup(<LocationListPage />, ["/locations?edit=loc-1"]);
+
+    expect(screen.getByTestId("location-form-dialog")).toBeInTheDocument();
+    expect(screen.getByTestId("location-form-title")).toHaveTextContent(
+      "Edit location",
+    );
+    expect(screen.getByTestId("location-form-name")).toHaveValue(
+      "Main Warehouse",
+    );
+  });
+
+  it("shows a success notice from navigation state", () => {
+    useLocationsQueryMock.mockReturnValue({
+      data: mockLocations,
+      isPending: false,
+      isError: false,
+      error: null,
+    } as ReturnType<typeof useLocationsQuery>);
+
+    setup(<LocationListPage />, [
+      { pathname: "/locations", state: { notice: "Location created." } },
+    ]);
+
+    expect(screen.getByTestId("location-list-notice")).toHaveTextContent(
+      "Location created.",
     );
   });
 });

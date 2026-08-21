@@ -52,3 +52,13 @@ export const StyledError = styled.div`
   color: ${({ theme }) => theme.colors.danger};
   font-size: 14px;
 `;
+
+export const StyledNotice = styled.div`
+  margin-bottom: ${({ theme }) => theme.spacing(4)};
+  padding: ${({ theme }) => theme.spacing(3)};
+  border-radius: ${({ theme }) => theme.radii.md};
+  background: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 14px;
+`;
