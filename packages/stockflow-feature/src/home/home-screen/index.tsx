@@ -5,7 +5,15 @@ import { useAuth } from "../../auth/auth-context";
 import { InventoryTable } from "../Inventory-table";
 import { QuickAddForm } from "../Quick-add-form";
 import type { InventoryItem } from "../types";
-import { Page, Card, Header, Title, Subtitle } from "./styles";
+import {
+  Page,
+  Card,
+  Header,
+  Title,
+  Subtitle,
+  Actions,
+  NavLink,
+} from "./styles";
 
 export const SEED_ITEMS: InventoryItem[] = [
   { sku: "SKU-001", name: "Pallet jack", quantity: 12 },
@@ -32,13 +40,18 @@ export function HomeScreen() {
       <Card>
         <Header>
           <Title>StockFlow</Title>
-          <Button
-            variant="secondary"
-            onClick={logout}
-            data-testid="home-logout"
-          >
-            Log out
-          </Button>
+          <Actions>
+            <NavLink to="/locations" data-testid="home-locations-link">
+              Locations
+            </NavLink>
+            <Button
+              variant="secondary"
+              onClick={logout}
+              data-testid="home-logout"
+            >
+              Log out
+            </Button>
+          </Actions>
         </Header>
         <Subtitle>
           Monorepo scaffold is live. This screen comes from{" "}

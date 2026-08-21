@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Page = styled.main`
@@ -29,4 +30,20 @@ export const Title = styled.h1`
 export const Subtitle = styled.p`
   margin: 0 0 ${({ theme }) => theme.spacing(6)};
   color: ${({ theme }) => theme.colors.textMuted};
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(4)};
+`;
+
+export const NavLink = styled(Link)`
+  color: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
+  font-size: 14px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

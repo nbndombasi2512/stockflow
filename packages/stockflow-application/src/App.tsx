@@ -5,6 +5,7 @@ import { GlobalStyle, theme } from "stockflow-component";
 import {
   AuthProvider,
   HomeScreen,
+  LocationListPage,
   LoginPage,
   ProtectedRoute,
   SignupPage,
@@ -28,6 +29,14 @@ export function App() {
                 element={
                   <ProtectedRoute>
                     <HomeScreen />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/locations"
+                element={
+                  <ProtectedRoute>
+                    <LocationListPage />
                   </ProtectedRoute>
                 }
               />

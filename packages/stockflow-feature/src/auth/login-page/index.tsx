@@ -29,10 +29,8 @@ function getServerErrorMessage(error: unknown): string {
     if (error.status === 401) {
       return error.message || "Invalid credentials";
     }
-
     return error.message || "Something went wrong. Please try again.";
   }
-
   return "Something went wrong. Please try again.";
 }
 
