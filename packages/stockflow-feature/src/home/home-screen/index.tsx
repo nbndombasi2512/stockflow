@@ -44,6 +44,9 @@ export function HomeScreen() {
             <NavLink to="/locations" data-testid="home-locations-link">
               Locations
             </NavLink>
+            <NavLink to="/products" data-testid="home-products-link">
+              Products
+            </NavLink>
             <Button
               variant="secondary"
               onClick={logout}

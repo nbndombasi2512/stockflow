@@ -7,6 +7,7 @@ import {
   HomeScreen,
   LocationListPage,
   LoginPage,
+  ProductListPage,
   ProtectedRoute,
   SignupPage,
 } from "stockflow-feature";
@@ -37,6 +38,14 @@ export function App() {
                 element={
                   <ProtectedRoute>
                     <LocationListPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/products"
+                element={
+                  <ProtectedRoute>
+                    <ProductListPage />
                   </ProtectedRoute>
                 }
               />
