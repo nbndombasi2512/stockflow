@@ -36,8 +36,8 @@ function getServerErrorMessage(error: unknown): string {
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const loginMutation = useLoginMutation();
+  const { login } = useAuth(); 
+  const loginMutation = useLoginMutation(); 
   const {
     register,
     handleSubmit,

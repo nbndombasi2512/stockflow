@@ -32,7 +32,8 @@ export const LocationListPage = () => {
   const { data, isPending, isError, error } = useLocationsQuery();
   const locations = data ?? [];
   const shouldShowTable = !isPending && !isError;
-  const isCreate = searchParams.get("create") === "1";
+  const isCreate = searchParams.get("create") === "active";
+  
   const editId = searchParams.get("edit") ?? undefined;
   const isDialogOpen = isCreate || Boolean(editId);
   const formMode = isCreate ? "create" : "edit";
@@ -41,9 +42,9 @@ export const LocationListPage = () => {
     <StyledPage data-testid="location-list-page">
       <StyledCard>
         <StyledHeader>
-          <StyledTitle>Locations</StyledTitle>
+          <StyledTitle>Locations Page</StyledTitle>
           <StyledAddLocationLink
-            to="/locations?create=1"
+            to="/locations?create=active"
             data-testid="add-location"
           >
             Add location
