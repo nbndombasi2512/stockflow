@@ -10,12 +10,24 @@ import {
   type AuthUser,
 } from "stockflow-helpers";
 
-export interface AuthLoginPayload {
-  accessToken: string;
+/*
+  AuthContext is a context that provides the authentication state to the entire application.
+  This file creates an authentication system for the React application.
+  "In simple words: Who is currently logged in? what is their token? and what should happen when they log in or log out?"
+
+  It uses the useQueryClient hook to clear the query cache when the user logs out.
+  It uses the useNavigate hook to navigate to the login page when the user logs out.
+  It uses the useState hook to store the authentication state.
+  It uses the createContext hook to create the authentication context.
+  It uses the useContext hook to access the authentication context.
+*/
+
+export interface AuthLoginPayload { 
+  accessToken: string; 
   user: AuthUser;
 }
 
-export interface AuthContextValue {
+export interface AuthContextValue { 
   user: AuthUser | null;
   token: string | null;
   isAuthenticated: boolean;
@@ -27,12 +39,12 @@ export interface AuthProviderProps {
   children: ReactNode;
 }
 
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+const AuthContext = createContext<AuthContextValue | undefined>(undefined); 
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const [token, setTokenState] = useState<string | null>(() => getToken());
+  const queryClient = useQueryClient(); 
+  const navigate = useNavigate(); 
+  const [token, setTokenState] = useState<string | null>(() => getToken()); 
   const [user, setUserState] = useState<AuthUser | null>(() => getUser());
 
   const login = ({ accessToken, user: authUser }: AuthLoginPayload) => {

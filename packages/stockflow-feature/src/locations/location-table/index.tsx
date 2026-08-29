@@ -62,6 +62,7 @@ const columns = [
 ];
 
 export const LocationTable = ({ locations }: LocationTableProps) => {
+  console.log("locations", locations);
   const table = useReactTable({
     data: locations,
     columns,

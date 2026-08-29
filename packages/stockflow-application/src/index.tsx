@@ -9,7 +9,7 @@ if (!container) {
 }
 
 createRoot(container).render(
-  <StrictMode>
+  <StrictMode> 
     <App />
   </StrictMode>,
 );
